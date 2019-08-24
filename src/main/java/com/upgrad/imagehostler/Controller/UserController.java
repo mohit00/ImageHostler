@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 
@@ -40,7 +42,9 @@ public class UserController {
 
     //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
-    public String loginUser(User user) {
+    public String loginUser(HttpSession session,User user) {
+        session.setAttribute("user",user);
+
         boolean userExists = userService.login(user);
         if (userExists) {
             return "redirect:/images";
