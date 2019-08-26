@@ -30,6 +30,29 @@ public class imageRepositor {
 
 
     }
+    public Image getSingleImages(int id){
+        EntityManager entityManager = emf.createEntityManager();
+
+        return  entityManager.find(Image.class,id);
+    }
+    public boolean deleteImage(int id){
+        EntityManager entityManager = emf.createEntityManager();
+
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+            Image image = entityManager.find(Image.class, id);
+            entityManager.remove(image);
+             transaction.commit();
+            return true;
+
+        }catch(Exception e) {
+            transaction.rollback();
+            return false;
+
+        }
+     }
 }
 
 

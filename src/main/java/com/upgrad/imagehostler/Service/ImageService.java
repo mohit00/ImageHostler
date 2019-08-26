@@ -26,13 +26,17 @@ imageRepositor repository;
         return repository.getAllImages();
     }
 
+public Image getSingleImage(int id ){
+    return repository.getSingleImages(id);
 
+}
     //The method does not store the image in the database
     public Image uploadImage(Image image) {
-//        images.add(new Image(3, image.getTitle(), image.getImageFile(), new Date()));
         repository.uploadImage(image);
       return image;
          //Simply return from this method as this method does not currently store the image in the database
     }
-
+    public boolean deleteImage(int id){
+        return repository.deleteImage(id);
+    }
 }
