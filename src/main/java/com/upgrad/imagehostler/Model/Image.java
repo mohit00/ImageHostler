@@ -1,4 +1,6 @@
 package com.upgrad.imagehostler.Model;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +11,9 @@ public class Image {
 @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String title;
+    @Type(type="text")
     private String imageFile;
+
     private String description;
     private Date date;
     @ManyToOne(fetch = FetchType.EAGER)

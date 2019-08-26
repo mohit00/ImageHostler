@@ -3,10 +3,8 @@ package com.upgrad.imagehostler.repository;
 import com.upgrad.imagehostler.Model.Image;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
+import java.util.List;
 
 @Repository
 public class imageRepositor {
@@ -25,4 +23,13 @@ public class imageRepositor {
         }
         return newImage;
     }
+    public List<Image> getAllImages(){
+        EntityManager entityManager = emf.createEntityManager();
+        Query query = entityManager.createQuery("select i from Image i");
+        return query.getResultList();
+
+
+    }
 }
+
+
