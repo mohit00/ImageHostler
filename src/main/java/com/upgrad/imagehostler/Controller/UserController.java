@@ -30,6 +30,7 @@ public class UserController {
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
+        System.out.println(user.getUsername());
         userService.registerUser(user);
         return "redirect:/users/login";
     }

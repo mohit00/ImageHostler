@@ -1,6 +1,7 @@
 package com.upgrad.imagehostler.Controller;
 
 import com.upgrad.imagehostler.Model.Image;
+import com.upgrad.imagehostler.Model.User;
 import com.upgrad.imagehostler.Service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
@@ -62,9 +64,14 @@ public class ImageController {
     //After you get the imageFile, convert it to Base64 format and store it as a string
     //After storing the image, this method directs to the logged in user homepage displaying all the images
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
-    public String createImage(@RequestParam("file") MultipartFile file, Image newImage) throws IOException {
+    public String createImage(@RequestParam("file") MultipartFile file, Image newImage, HttpSession session) throws IOException {
                 System.out.println(convertUploadedFileToBase64(file));
-                newImage.setImageFile(convertUploadedFileToBase64(file));
+        User u  = (User) session.getAttribute("User");
+        newImage.setUser(u);
+
+        newImage.setDate(new Date());
+
+        newImage.setImageFile(convertUploadedFileToBase64(file));
                 imageService.uploadImage(newImage);
          //Complete the method
         //Encode the imageFile to Base64 format and set it as the imageFile attribute of the newImage

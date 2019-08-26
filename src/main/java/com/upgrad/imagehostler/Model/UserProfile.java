@@ -1,13 +1,18 @@
 package com.upgrad.imagehostler.Model;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "user_profile")
 public class UserProfile {
 
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String fullName;
     private String emailAddress;
     private String mobileNumber;
-
 
     public Integer getId() {
         return id;
@@ -40,4 +45,6 @@ public class UserProfile {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
+
 }

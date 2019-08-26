@@ -1,13 +1,28 @@
 package com.upgrad.imagehostler.Model;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name ="image")
 public class Image {
-
+@Id
+@GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String title;
     private String imageFile;
     private String description;
     private Date date;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Image(Integer id, String title, String imageFile, Date date) {
         this.id = id;

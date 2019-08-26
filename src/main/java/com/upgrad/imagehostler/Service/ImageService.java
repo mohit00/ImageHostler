@@ -1,5 +1,7 @@
 package com.upgrad.imagehostler.Service;
 import com.upgrad.imagehostler.Model.Image;
+import com.upgrad.imagehostler.repository.imageRepositor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,7 +10,8 @@ import java.util.List;
 
 @Service
 public class ImageService {
-
+@Autowired
+imageRepositor repository;
     private List<Image> images = new ArrayList<>();
 
     public ImageService() {
@@ -27,6 +30,7 @@ public class ImageService {
     //The method does not store the image in the database
     public Image uploadImage(Image image) {
 //        images.add(new Image(3, image.getTitle(), image.getImageFile(), new Date()));
+        repository.uploadImage(image);
       return image;
          //Simply return from this method as this method does not currently store the image in the database
     }
