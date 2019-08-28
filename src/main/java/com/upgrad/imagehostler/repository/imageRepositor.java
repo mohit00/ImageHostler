@@ -37,6 +37,7 @@ public class imageRepositor {
         return  entityManager.find(Image.class,id);
     }
     public boolean deleteImage(int id){
+        System.out.println("++++++++++++++++++++++++ " + id);
         EntityManager entityManager = emf.createEntityManager();
 
         EntityTransaction transaction = entityManager.getTransaction();
@@ -44,6 +45,7 @@ public class imageRepositor {
         try {
             transaction.begin();
             Image image = entityManager.find(Image.class, id);
+
             entityManager.remove(image);
              transaction.commit();
             return true;

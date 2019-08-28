@@ -32,10 +32,11 @@ public class ImageController {
         return "images";
     }
 
-    @DeleteMapping("/images/{id}")
-    public String deleteImage(@PathVariable("id") int id){
+    @PostMapping("/delete/images")
+    public String deleteImage(@RequestParam("imageId") int id){
+        System.out.println(id);
         imageService.deleteImage(id);
-        return "images";
+        return "redirect:/images";
     }
 @GetMapping("/edit/images/{id}")
 public String editImage(@PathVariable("id") int id,Model model,HttpSession session){
