@@ -16,6 +16,7 @@ public class Image {
 
     private String description;
     private Date date;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
@@ -26,13 +27,6 @@ public class Image {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Image(Integer id, String title, String imageFile, Date date) {
-        this.id = id;
-        this.title = title;
-        this.imageFile = imageFile;
-        this.date = date;
     }
 
     public Image(Integer id, String title, String imageFile, String description, Date date) {

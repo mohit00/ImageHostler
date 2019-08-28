@@ -43,10 +43,9 @@ public class UserController {
 
     //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
-    public String loginUser(HttpSession session,User user) {
-        session.setAttribute("user",user);
+    public String loginUser(HttpSession session,User user,Model model) {
 
-        boolean userExists = userService.login(user);
+        boolean userExists = userService.login(user,session);
         if (userExists) {
             return "redirect:/images";
         } else {

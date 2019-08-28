@@ -25,16 +25,17 @@ public class userRepository {
         }
          return user;
     }
-    public boolean userLogin(User user){
+    public User userLogin(User user){
         EntityManager entityManager = emf.createEntityManager();
         Query query = entityManager.createQuery("select u from User u where u.username = :user AND  u.password = :password");
         query.setParameter("user",user.getUsername());
         query.setParameter("password",user.getPassword());
-        List resultList = query.getResultList();
-            if(resultList.size() > 0){
-                return true;
-            }else{
-                return false;
-            }
+        try {
+            return (User) query.getSingleResult();
+
+        }catch (Exception e){
+            return  null;
+        }
+
     }
 }

@@ -1,0 +1,32 @@
+<!Doctype html>
+
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+</head>
+
+<!-- Using the logged-in fragment -->
+<header th:replace="layout :: logged-in"></header>
+
+<body>
+<h1>Edit Image</h1>
+
+<form method="post" th:action="@{/edit/images(imageId=${image.id})}" enctype="multipart/form-data">
+    <div>Image Title:</div>
+    <div><input type="text" id="title" name="title" th:value="${image.title}"/></div>
+
+    <div>Description:</div>
+
+    <div><textarea rows="7" cols="100" name="description" th:text="${image.description}"></textarea></div>
+    <div>
+        <label for="file">Upload File</label>
+        <input type="file" name="file" id="file"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+
+</body>
+</html>

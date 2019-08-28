@@ -23,9 +23,12 @@ public class ImageController {
 
     //This method displays all the images in the user home page after successful login
     @RequestMapping("images")
-    public String getUserImages(Model model) {
+    public String getUserImages(Model model,HttpSession session) {
         List<Image> images = imageService.getAllImages();
         model.addAttribute("images", images);
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+
         return "images";
     }
 
@@ -34,7 +37,32 @@ public class ImageController {
         imageService.deleteImage(id);
         return "images";
     }
+@GetMapping("/edit/images/{id}")
+public String editImage(@PathVariable("id") int id,Model model,HttpSession session){
+    User user = (User) session.getAttribute("user");
+    model.addAttribute("user",user);
 
+    Image image =imageService.getSingleImage(id);
+     model.addAttribute("image", image );
+
+    return "/edit/images";
+    }
+    @PostMapping("/edit/images")
+    public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId, Image updatedImage, HttpSession session,Model model) throws IOException {
+      updatedImage.setId(imageId);
+        User user = (User) session.getAttribute("user");
+System.out.println(user.getUsername());
+        updatedImage.setUser(user);
+        updatedImage.setDate(new Date());
+
+        updatedImage.setImageFile(convertUploadedFileToBase64(file));
+
+        imageService.editImage(updatedImage);
+        model.addAttribute("user",user);
+
+        return "redirect:/images";
+
+    }
     //This method is called when the details of the specific image with corresponding title are to be displayed
     //The logic is to get the image from the databse with corresponding title. After getting the image from the database the details are shown
     //But since the images are not stored in the database, therefore, we have hard-coded two images here
@@ -42,7 +70,10 @@ public class ImageController {
     //If the title of the image is 'SpiderMan', an image object is created with all the corresponding details
     //The image object is added to the model and 'images/image.html' file is returned
     @RequestMapping("/images/{id}")
-    public String showImage(@PathVariable("id") int id, Model model) {
+    public String showImage(@PathVariable("id") int id, Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+
         Date date = new Date();
 
 //        Image image = null;
@@ -69,14 +100,11 @@ public class ImageController {
     //After storing the image, this method directs to the logged in user homepage displaying all the images
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
     public String createImage(@RequestParam("file") MultipartFile file, Image newImage, HttpSession session) throws IOException {
-                System.out.println(convertUploadedFileToBase64(file));
-        User u  = (User) session.getAttribute("User");
-        newImage.setUser(u);
 
         newImage.setDate(new Date());
 
         newImage.setImageFile(convertUploadedFileToBase64(file));
-                imageService.uploadImage(newImage);
+                imageService.uploadImage(newImage,session);
          //Complete the method
         //Encode the imageFile to Base64 format and set it as the imageFile attribute of the newImage
         //Set the date attribute of newImage

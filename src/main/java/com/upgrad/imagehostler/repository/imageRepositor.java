@@ -1,9 +1,11 @@
 package com.upgrad.imagehostler.repository;
 
 import com.upgrad.imagehostler.Model.Image;
+import com.upgrad.imagehostler.Model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Repository
@@ -12,6 +14,7 @@ public class imageRepositor {
 
     EntityManagerFactory emf;
     public Image uploadImage(Image newImage){
+
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -27,8 +30,6 @@ public class imageRepositor {
         EntityManager entityManager = emf.createEntityManager();
         Query query = entityManager.createQuery("select i from Image i");
         return query.getResultList();
-
-
     }
     public Image getSingleImages(int id){
         EntityManager entityManager = emf.createEntityManager();
@@ -52,6 +53,18 @@ public class imageRepositor {
             return false;
 
         }
+     }
+     public Image editNewImage(Image newImage){
+         EntityManager entityManager = emf.createEntityManager();
+         EntityTransaction transaction = entityManager.getTransaction();
+          try {
+             transaction.begin();
+              entityManager.merge(newImage);
+             transaction.commit();
+         }catch (Exception e){
+             transaction.rollback();
+         }
+         return newImage;
      }
 }
 
