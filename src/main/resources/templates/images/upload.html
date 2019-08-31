@@ -6,7 +6,7 @@
 </head>
 
 <!-- Using the logged-in fragment -->
-<!--<header th:replace="layout :: logged-in"></header>-->
+ <header th:replace="layout :: logged-in"></header>
 
 <body>
 <h1>Upload New Image</h1>
@@ -22,7 +22,11 @@
         <label for="file">Upload File</label>
         <input type="file" name="file" id="file"/>
     </div>
-
+    <div>
+        <label for="tags">Tags</label>
+        <input type="text" name="tags" id="tags"/>
+        <p> Multiple tags are allowed. Please separate tags by "," such as labrador,dog,yellow </p>
+    </div>
     <div>
         <input type="submit" value="Submit"/>
     </div>

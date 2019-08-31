@@ -2,7 +2,10 @@ package com.upgrad.imagehostler.Model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name ="image")
@@ -20,6 +23,18 @@ public class Image {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
+
+    public List<com.upgrad.imagehostler.Model.tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<com.upgrad.imagehostler.Model.tags> tags) {
+        this.tags = tags;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<tags> tags = new ArrayList<>();
+
 
     public User getUser() {
         return user;
