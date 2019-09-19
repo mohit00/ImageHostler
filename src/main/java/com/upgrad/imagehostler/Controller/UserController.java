@@ -32,7 +32,7 @@ public class UserController {
     public String registerUser(User user,Model model) {
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
-         if(user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])([a-zA-Z0-9@#$%^&+=]+)$")){
+         if(user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])([a-zA-Z0-9@#$%^&+=!]+)$")){
              userService.registerUser(user);
 
              return "redirect:/users/login";

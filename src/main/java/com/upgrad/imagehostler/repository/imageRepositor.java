@@ -2,6 +2,7 @@ package com.upgrad.imagehostler.repository;
 
 import com.upgrad.imagehostler.Model.Image;
 import com.upgrad.imagehostler.Model.User;
+import com.upgrad.imagehostler.Model.comment;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -35,6 +36,31 @@ public class imageRepositor {
         EntityManager entityManager = emf.createEntityManager();
 
         return  entityManager.find(Image.class,id);
+    }
+    public comment savecomment(HttpSession session,int id,String text){
+        User user = (User) session.getAttribute("user");
+    Image im = getSingleImages(id);
+        EntityManager entityManager = emf.createEntityManager();
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        comment c = new comment();
+
+        try {
+            transaction.begin();
+ c.setImage(im);
+ c.setUser(user);
+ c.setText(text);
+            entityManager.persist(c);
+            transaction.commit();
+
+             return c;
+
+        }catch(Exception e) {
+            transaction.rollback();
+            return c;
+
+        }
+
     }
     public boolean deleteImage(int id){
         System.out.println("++++++++++++++++++++++++ " + id);

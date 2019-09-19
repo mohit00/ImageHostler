@@ -1,6 +1,7 @@
 package com.upgrad.imagehostler.Service;
 import com.upgrad.imagehostler.Model.Image;
 import com.upgrad.imagehostler.Model.User;
+import com.upgrad.imagehostler.Model.comment;
 import com.upgrad.imagehostler.repository.imageRepositor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,14 @@ public Image getSingleImage(int id ){
     return repository.getSingleImages(id);
 
 }
+public comment savecomment(HttpSession session,int id,String text){
+    return repository.savecomment(session,id,text);
+
+}
 public Image editImage(Image newImage){
         return  repository.editNewImage(newImage);
 }
+
     //The method does not store the image in the database
     public Image uploadImage(Image image, HttpSession session) {
         User u  = (User) session.getAttribute("user");
