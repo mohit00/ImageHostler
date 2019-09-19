@@ -4,14 +4,15 @@
 
 <!-- Adding the fragment site-head in layout.html-->
 <head th:replace="layout :: site-head">
+
 </head>
 
 <!-- Adding the fragment logged-out in layout.html-->
 <header th:replace="layout :: logged-out"></header>
 
 <body>
-<h1>Image Hoster</h1>
-<main id="images">
+<h1 >Image Hoster</h1>
+<main id="images"   >
     <post th:each="i : ${images}">
         <div>
             <img th:src="'data:image/jpeg;base64,'+${i.imageFile}"/>

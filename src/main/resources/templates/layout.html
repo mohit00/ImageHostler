@@ -3,10 +3,9 @@
 <html xmlns:th="http://thymeleaf.org">
 <head th:fragment="site-head">
     <title>Spring MVC Application - Image Hoster</title>
+    <link href="/style.css" rel="stylesheet" type="text/css">
 </head>
-
-<body>
-
+<body >
 <!-- The logged-out fragment now contains Login as well as Registration-->
 <header th:fragment="logged-out" th:remove="tag">
     <header>
@@ -14,14 +13,32 @@
         <a href="users/registration.html" th:href="@{/users/registration}">Registration</a>
     </header>
 </header>
-
 <!-- Define a logged-in fragment-->
  <header th:fragment="logged-in" th:remove="tag">
     <header>
-     Logined As <span th:text="${user.username}"></span>   <a href="images/upload.html"  th:href="@{/images/upload}">Upload Image</a>
+        <strong>Logged in  As: </strong> | <span th:text="${user.username}"></span>   <a href="images/upload.html"  th:href="@{/images/upload}">Upload Image</a><br>
+        <a href="images/upload.html"  th:href="@{/}" style="font-size: 18px;margin-top: 10px">Image Hoster</a>
     </header>
 </header>
+<header th:fragment="Detail-Header" th:remove="tag">
+    <header>
+        <span style="width:100%">
+        <strong>Logged in  As: </strong> |
+        <span th:text="${user.username}"></span>
+        <a href="images/upload.html"  th:href="@{/images/upload}">Upload Image</a>
+            <a th:href="'/edit/images/' + ${image.id}" style="float: right">
+    Edit</a>
 
+            <span  th:text="${error}">
+</span>
+        <form method="post" th:action="@{/deleteImage(imageId=${image.id})}" enctype="multipart/form-data" style="width:100%;">
+
+        <input type="submit" value="Delete" style="float: right"/>
+</form>
+
+        </span>
+         <a href="images/upload.html"  th:href="@{/}" style="font-size: 18px;margin-top: 10px">Image Hoster</a>
+    </header>
+</header>
 </body>
-
 </html>
