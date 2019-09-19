@@ -123,7 +123,7 @@ public class ImageController {
             model.addAttribute("tags",tags);
             model.addAttribute("image", image );
 
-            return "redirect:/images/" + image.getId();
+            return "images/image";
 
 
 
@@ -169,9 +169,20 @@ public class ImageController {
     //The method calls the deleteImage() method in the business logic passing the id of the image to be deleted
     //Looks for a controller method with request mapping of type '/images'
     @RequestMapping(value = "/deleteImage", method = RequestMethod.POST)
-    public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId) {
-        imageService.deleteImage(imageId);
-        return "redirect:/images";
+    public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId,HttpSession session,Model model) {
+        User user = (User) session.getAttribute("user");
+        Image image =imageService.getSingleImage(imageId);
+        if(image.getUser().getId().equals(user.getId())) {
+            imageService.deleteImage(imageId);
+            return "redirect:/images";
+        }else{
+            model.addAttribute("user",user);
+            String tags = convertTagsToString(image.getTags());
+            model.addAttribute("tags",tags);
+            model.addAttribute("image", image );
+            model.addAttribute("errordelete","Only Owner of this image can delete image");
+            return "images/image";
+        }
     }
     //This method converts the image to Base64 format
     private String convertUploadedFileToBase64(MultipartFile file) throws IOException {

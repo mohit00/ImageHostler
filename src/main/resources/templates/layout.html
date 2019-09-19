@@ -27,15 +27,33 @@
         <span th:text="${user.username}"></span>
         <a href="images/upload.html"  th:href="@{/images/upload}">Upload Image</a>
             <a th:href="'/edit/images/' + ${image.id}" style="float: right">
-    Edit</a>
 
-            <span  th:text="${error}">
-</span>
+
+    Edit</a>
+            <br>
+
+            <span  th:if="${error != null }" th:text="${error}"   style ="
+    padding: 10px;
+    border: 1px solid red;
+    margin-top: 8px;
+    float: right;
+">
+</span> <br>
         <form method="post" th:action="@{/deleteImage(imageId=${image.id})}" enctype="multipart/form-data" style="width:100%;">
 
-        <input type="submit" value="Delete" style="float: right"/>
-</form>
 
+            <div style="
+    width: 100%;
+    float: right;
+"><input type="submit" value="Delete" style="float: right;line-break: auto;width: 6%;padding: 6px;">
+    </div>
+</form>
+            <span  th:if="${errordelete != null }" th:text="${errordelete}"   style ="
+    padding: 10px;
+    border: 1px solid red;
+    margin-top: 8px;
+    float: right;">
+</span> <br>
         </span>
          <a href="images/upload.html"  th:href="@{/}" style="font-size: 18px;margin-top: 10px">Image Hoster</a>
     </header>
