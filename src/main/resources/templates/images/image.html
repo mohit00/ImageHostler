@@ -10,7 +10,7 @@
 <!-- Display all the details of a particular image-->
 <header th:replace="layout :: Detail-Header"></header>
 <body>
-<h1 style ="margin-left:35%">Welcome User. This is the image</h1>
+<h1 style ="margin-left:24%">Welcome User. This is the image</h1>
 <main id="image">
     <h3 th:text="${image.title}">Title of image</h3>
     <div><i>Description: </i> <span th:text="${image.description}"></span></div>
@@ -24,6 +24,53 @@
     padding: 7px 10px 7px 10px;
     border: 1px solid;"></span>
     </tags>
+    <div class="comments mt5">
+
+        <article class="ba b--black-10 mv4" >
+
+            <h1 class="f4 bg-light-gray black-80 mv0 pv2 ph3">Title of
+
+                card</h1>
+
+            <div class="pa3 bt b--black-10">
+
+                <p class="f6 f5-ns lh-copy measure" >
+
+                    text
+
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+    <form method="POST" enctype="multipart/form-data"
+
+          th:action="'/image/'+ ${image.id} + '/' + ${image.title} + '/comments'">
+
+        <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+
+            <div class="mt3">
+
+                <label class="db fw6 lh-copy f6" for="comment">Write a comment</label>
+
+                <textarea class="pa2 input-reset ba w-100" rows="5" name="comment" id="comment"></textarea>
+
+            </div>
+
+        </fieldset>
+
+        <div>
+
+            <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit"
+
+                   value="Submit">
+
+        </div>
+
+    </form>
 </main>
+
 </body>
 </html>

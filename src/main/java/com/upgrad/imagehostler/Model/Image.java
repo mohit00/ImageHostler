@@ -19,6 +19,11 @@ public class Image {
 
     private String description;
     private Date date;
+    @OneToMany(mappedBy = "image",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    List<comment>  list3 = new ArrayList<>();
+    public List<comment> getList() {
+        return list3;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")

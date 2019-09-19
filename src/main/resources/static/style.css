@@ -1039,8 +1039,8 @@ img {
     -ms-flex-pack: justify;
     justify-content: space-between
 }
-main{
-    margin-left: 36%;
+#main{
+    margin-left: 27%;
 }
 .justify-around {
     -ms-flex-pack: distribute;

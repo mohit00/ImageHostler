@@ -18,9 +18,13 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     List<Image>  list = new ArrayList<>();
 
-    public List<Image> getList() {
-        return list;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    List<comment>  list2 = new ArrayList<>();
+    public List<comment> getList() {
+        return list2;
     }
+
+
 
     public void setList(List<Image> list) {
         this.list = list;
