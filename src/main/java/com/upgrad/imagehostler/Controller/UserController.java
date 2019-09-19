@@ -29,10 +29,27 @@ public class UserController {
 
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
-    public String registerUser(User user) {
+    public String registerUser(User user,Model model) {
         System.out.println(user.getUsername());
-        userService.registerUser(user);
-        return "redirect:/users/login";
+        System.out.println(user.getPassword());
+         if(user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])([a-zA-Z0-9@#$%^&+=]+)$")){
+             userService.registerUser(user);
+
+             return "redirect:/users/login";
+
+         }else{
+             String error = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
+
+System.out.println(error);
+
+             model.addAttribute("passwordTypeError",error);
+             User user1 = new User();
+             UserProfile profile = new UserProfile();
+             user1.setProfile(profile);
+             model.addAttribute("User", user1);
+             return "users/registration";
+
+         }
     }
 
     //This controller method is called when the request pattern is of type 'users/login'

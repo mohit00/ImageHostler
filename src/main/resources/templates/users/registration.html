@@ -28,7 +28,12 @@
 
     <label for="fullname">Mobile Number:</label>
     <input type="text" id="mobilenumber" name="mobileNumber" th:field="${User.profile.mobileNumber}"/>
+    <br>
+    <span  th:if="${passwordTypeError != null }" th:text="${passwordTypeError}"  >
 
+
+</span>
+    <br>
     <input type="submit" value="Register"/>
 </form>
 
